@@ -3,6 +3,7 @@
 #include "game.h"
 
 int p_hand = 0;
+int b_hand = 0;
 
 int main()
 {
@@ -23,13 +24,25 @@ player_place_bet(g);
 sum_player_hand(g->player);
 print_turn_results(g, p_hand);
 
-if (player_breakthrough(g))
+if (p_hand > 21)
 {
+  player_breakthrough(g);
   player_lost(g);
 }
 
-if (player_jackpot(g))
+if (p_hand == 21)
 {
+  player_jackpot(g);
   player_win(g);
+}
+
+if (p_hand > b_hand)
+{
+    player_win(g);
+}
+
+if (p_hand < b_hand)
+{
+    player_lost(g);
 }
 }
