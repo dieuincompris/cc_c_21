@@ -95,7 +95,8 @@ void print_player_coins(t_player * p)
 
 void broker_new_hand(t_game * g)
 {
-    g->broker = 14 + (rand() % 8);
+   g->broker = 14 + (rand() % 8);
+
 }
 
 void player_new_hand(t_game * g)
@@ -165,10 +166,15 @@ int player_ask_cards(t_game * g)
         {
             g->player->hand[inhand++] = g->cards[g->indeck++];
             print_player_hand(g->player);
+            int p_hand = sum_player_hand(g->player);
+            print_turn_results(g, p_hand);
         }
         if (inhand >= 6)
+        
             return 6;
     }
+    int p_hand = sum_player_hand(g->player);
+    print_turn_results(g, p_hand);
     return inhand;
 }
 
@@ -212,6 +218,7 @@ void print_turn_results(t_game * g, int p_hand)
 {
     printf("Broker score is : %i; your score is : %i\n", g->broker, p_hand);
 }
+
 
 void player_jackpot(t_game * g)
 {
